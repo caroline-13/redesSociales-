@@ -1,0 +1,5 @@
+function Adduser (){
+    userName = document.getElementById("userName").value;
+    localStorage.setItem("userName",userName);
+    window.location = "kwitter_room.html";
+}
