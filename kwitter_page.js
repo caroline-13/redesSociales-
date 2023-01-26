@@ -11,7 +11,7 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-userName = localStorage.getItem("username");
+userName = localStorage.getItem("userName");
 room_name = localStorage.getItem("room_name");
 function send() {
       msg = document.getElementById("msg").value;
@@ -25,14 +25,14 @@ function send() {
 function getData() {
       firebase.database().ref("/" + room_name).on('value', function (snapshot) {
             document.getElementById("output").innerHTML = ""; snapshot.forEach(function (childSnapshot) {
-                  childKey = childSnapshot.key; childData = childSnapshot.val(); if (childKey != "purpose") {
+                  childKey = childSnapshot.key; childData = childSnapshot.val(); if (childKey != "proposito") {
                         firebase_message_id = childKey;
                         message_data = childData;
                         //Inicia código
-                        nombre = message_data["nombre "];
+                        nombre = message_data["nombre"];
                         mensaje = message_data["mensaje"];
                         like = message_data["like"];
-                        row = "<h4>"+nombre+"</h4> <h4 class='message_h4'>"+mensaje+"</h4> <button class='btn btn-warning' id="+firebase_mensaje_id+" value="+like+" onclick='updateLike(this.id)'>"+like+"👍🏻</button>";
+                        row = "<h4>"+nombre+"</h4> <h4 class='message_h4'>"+mensaje+"</h4> <button class='btn btn-warning' id="+firebase_message_id+" value="+like+" onclick='updateLike(this.id)'>"+like+"👍🏻</button>";
                      document.getElementById("output").innerHTML+=row;
                         //Termina código
                   }
@@ -46,3 +46,4 @@ function updateLike(mensajeId){
       likesActualizados = Number (like) + 1;
       firebase.database().ref(room_name).child(mensajeId).update({like:likesActualizados});
 }
+
